@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campfire — Design System v0.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   CAMPFIRE — DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* PEACH — primary (Pantone 13-1023 Peach Fuzz at 300) */
+  --peach-50:  #FFF6F0;
+  --peach-100: #FFE8D8;
+  --peach-200: #FFD4B8;
+  --peach-300: #FFBE98;   /* ← Peach Fuzz */
+  --peach-400: #FFA574;
+  --peach-500: #F58856;
+  --peach-600: #DC6B3A;
+  --peach-700: #B4502A;
+  --peach-800: #87391E;
+  --peach-900: #542413;
+
+  /* EMBER — warm accent, deep glow */
+  --ember-400: #E8653A;
+  --ember-500: #D94F1E;
+  --ember-600: #B33A10;
+
+  /* DUSK — cool complement for charts & contrast */
+  --dusk-50:  #F1F1F6;
+  --dusk-200: #C7C5DB;
+  --dusk-400: #7D7AAD;
+  --dusk-500: #5E5B8C;
+  --dusk-700: #3C3962;
+  --dusk-900: #1F1D38;
+
+  /* CREAM — warm neutrals (grounded in peach undertone) */
+  --cream-50:  #FBF8F4;
+  --cream-100: #F5EEE5;
+  --cream-200: #E8DFD1;
+  --cream-300: #D2C5B0;
+  --cream-400: #A69680;
+  --cream-500: #7A6B58;
+  --cream-600: #56493A;
+  --cream-700: #3A2F24;
+  --cream-800: #241C14;
+  --cream-900: #140E09;
+
+  /* SEMANTIC */
+  --success:   #6BAE4F;
+  --success-bg:#E8F3E0;
+  --warning:   #E8A62B;
+  --warning-bg:#FCEFD1;
+  --danger:    #D14545;
+  --danger-bg: #FAE0E0;
+  --info:      #5B8FC9;
+  --info-bg:   #E2ECF7;
+
+  /* SURFACES (light mode) */
+  --bg:        var(--cream-50);
+  --surface:   #FFFFFF;
+  --surface-2: var(--cream-100);
+  --border:    var(--cream-200);
+  --border-strong: var(--cream-300);
+  --text:      var(--cream-900);
+  --text-muted:var(--cream-500);
+  --text-soft: var(--cream-600);
+
+  /* TYPOGRAPHY */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body:    "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --text-xs:   0.75rem;  /* 12 */
+  --text-sm:   0.875rem; /* 14 */
+  --text-base: 1rem;     /* 16 */
+  --text-lg:   1.125rem; /* 18 */
+  --text-xl:   1.25rem;  /* 20 */
+  --text-2xl:  1.5rem;   /* 24 */
+  --text-3xl:  1.875rem; /* 30 */
+  --text-4xl:  2.25rem;  /* 36 */
+  --text-5xl:  3rem;     /* 48 */
+  --text-6xl:  3.75rem;  /* 60 */
+  --text-7xl:  5rem;     /* 80 */
+
+  /* SPACING — 4px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* RADIUS — generous for friendliness */
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r-md:  12px;
+  --r-lg:  16px;
+  --r-xl:  24px;
+  --r-2xl: 32px;
+  --r-full:9999px;
+
+  /* SHADOWS — warm-tinted (rgba of cream-900 base) */
+  --shadow-xs:  0 1px 2px rgba(20, 14, 9, 0.05);
+  --shadow-sm:  0 2px 6px rgba(20, 14, 9, 0.06), 0 1px 2px rgba(20, 14, 9, 0.04);
+  --shadow-md:  0 4px 14px rgba(20, 14, 9, 0.08), 0 2px 4px rgba(20, 14, 9, 0.04);
+  --shadow-lg:  0 12px 32px rgba(20, 14, 9, 0.12), 0 4px 8px rgba(20, 14, 9, 0.06);
+  --shadow-xl:  0 24px 64px rgba(20, 14, 9, 0.16), 0 8px 16px rgba(20, 14, 9, 0.08);
+  --shadow-glow:0 0 0 4px rgba(255, 190, 152, 0.35);
+  --shadow-ember: 0 8px 32px rgba(217, 79, 30, 0.25);
+
+  /* MOTION */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur: 220ms;
+  --dur-slow: 400ms;
+}
+
+[data-theme="dark"] {
+  --bg:        #0F0A06;
+  --surface:   #1A120C;
+  --surface-2: #241A12;
+  --border:    #3A2F24;
+  --border-strong: #56493A;
+  --text:      #FBF8F4;
+  --text-muted:#A69680;
+  --text-soft: #D2C5B0;
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm:  0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-md:  0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-lg:  0 12px 32px rgba(0, 0, 0, 0.55);
+  --shadow-xl:  0 24px 64px rgba(0, 0, 0, 0.6);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* Grain overlay for atmosphere */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT SHELL
+   ═══════════════════════════════════════════════════════════════ */
+.shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: var(--space-8) var(--space-6);
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-10);
+}
+
+.sidebar-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(135deg, var(--peach-300), var(--ember-500));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-ember);
+}
+
+.sidebar-brand-text {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xl);
+  font-variation-settings: "SOFT" 100, "opsz" 14;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-section {
+  margin-bottom: var(--space-6);
+}
+
+.sidebar-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+  padding: 0 var(--space-2);
+}
+
+.sidebar-link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--r-sm);
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: all var(--dur-fast) var(--ease);
+}
+.sidebar-link:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.sidebar-link.active {
+  background: var(--peach-100);
+  color: var(--peach-800);
+}
+[data-theme="dark"] .sidebar-link.active {
+  background: rgba(255, 190, 152, 0.15);
+  color: var(--peach-300);
+}
+
+.main {
+  padding: var(--space-12) var(--space-16);
+  max-width: 1400px;
+}
+
+.section { margin-bottom: var(--space-24); scroll-margin-top: var(--space-8); }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px dashed var(--border-strong);
+}
+.section-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--peach-600);
+  font-weight: 500;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-4xl);
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+.section-desc {
+  color: var(--text-muted);
+  max-width: 60ch;
+  margin-bottom: var(--space-8);
+  font-size: var(--text-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  padding: var(--space-16) var(--space-8) var(--space-20);
+  border-radius: var(--r-2xl);
+  margin-bottom: var(--space-16);
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 190, 152, 0.5), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(217, 79, 30, 0.3), transparent 45%),
+    linear-gradient(180deg, var(--peach-50), var(--cream-100));
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+[data-theme="dark"] .hero {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 190, 152, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(217, 79, 30, 0.15), transparent 45%),
+    linear-gradient(180deg, var(--surface), var(--surface-2));
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--peach-700);
+  margin-bottom: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+[data-theme="dark"] .hero-eyebrow { color: var(--peach-300); }
+
+.hero-eyebrow::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ember-500);
+  box-shadow: 0 0 12px var(--ember-500);
+  animation: pulse 2s var(--ease) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, var(--text-7xl));
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  max-width: 14ch;
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+  margin-bottom: var(--space-6);
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--ember-500);
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+}
+
+.hero-sub {
+  font-size: var(--text-xl);
+  color: var(--text-soft);
+  max-width: 52ch;
+  margin-bottom: var(--space-8);
+}
+
+.hero-meta {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+.hero-meta-item {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+.hero-meta-item span {
+  display: block;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+.hero-meta-item strong {
+  font-size: var(--text-sm);
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Hero decorative flame SVG */
+.hero-flame {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 340px;
+  height: 340px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAMES GRID
+   ═══════════════════════════════════════════════════════════════ */
+.names-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+.name-card {
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition: all var(--dur) var(--ease);
+  cursor: default;
+}
+.name-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--peach-300);
+}
+.name-card.featured {
+  background: linear-gradient(135deg, var(--peach-100), var(--peach-50));
+  border-color: var(--peach-300);
+}
+[data-theme="dark"] .name-card.featured {
+  background: linear-gradient(135deg, rgba(255, 190, 152, 0.12), rgba(255, 190, 152, 0.04));
+}
+.name-card h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-1);
+  font-variation-settings: "SOFT" 80, "opsz" 24;
+}
+.name-card p {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.name-card-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ember-600);
+  background: var(--peach-100);
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  margin-bottom: var(--space-2);
+}
+[data-theme="dark"] .name-card-tag {
+  color: var(--peach-300);
+  background: rgba(255, 190, 152, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   COLOR PALETTE
+   ═══════════════════════════════════════════════════════════════ */
+.palette-group { margin-bottom: var(--space-10); }
+.palette-group-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.palette-group-name {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variation-settings: "SOFT" 50, "opsz" 24;
+}
+.palette-group-desc {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  max-width: 40ch;
+  text-align: right;
+}
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-2);
+}
+.swatch {
+  aspect-ratio: 1 / 0.85;
+  border-radius: var(--r-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.swatch:hover { transform: translateY(-3px) scale(1.02); }
+.swatch-name { font-weight: 700; font-size: 11px; }
+.swatch-hex { opacity: 0.75; }
+.swatch.marker { outline: 2px solid var(--text); outline-offset: 3px; }
+.swatch-badge {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  font-size: 9px;
+  background: rgba(0,0,0,0.2);
+  padding: 2px 6px;
+  border-radius: var(--r-full);
+  color: white;
+}
+
+/* Semantic swatches inline */
+.sem-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+.sem-card {
+  padding: var(--space-5);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.sem-dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  margin-bottom: var(--space-3);
+}
+.sem-card h5 { font-weight: 700; margin-bottom: var(--space-1); }
+.sem-card code { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-muted); }
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY SPECIMEN
+   ═══════════════════════════════════════════════════════════════ */
+.type-specimen {
+  padding: var(--space-10);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  margin-bottom: var(--space-6);
+  position: relative;
+}
+.type-meta {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: right;
+}
+.type-sample {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 1;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+}
+.type-weights {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  font-size: var(--text-xl);
+  padding-top: var(--space-6);
+  border-top: 1px dashed var(--border-strong);
+}
+.type-weights span { display: flex; flex-direction: column; gap: 4px; }
+.type-weights span em {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.type-scale { display: grid; gap: var(--space-3); }
+.type-scale-row {
+  display: grid;
+  grid-template-columns: 100px 80px 1fr;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+.type-scale-row code {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--peach-700);
+}
+[data-theme="dark"] .type-scale-row code { color: var(--peach-300); }
+.type-scale-row .size {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SPACING / RADIUS / SHADOW
+   ═══════════════════════════════════════════════════════════════ */
+.tokens-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-3);
+}
+.token-box {
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  text-align: center;
+}
+.token-box .viz {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+}
+.token-box .space-viz {
+  background: var(--peach-300);
+  border-radius: var(--r-xs);
+}
+.token-box .radius-viz {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, var(--peach-300), var(--ember-500));
+}
+.token-box .shadow-viz {
+  width: 60px; height: 60px;
+  background: var(--surface);
+  border-radius: var(--r-md);
+}
+.token-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.token-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 18px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+.btn:focus-visible { outline: none; box-shadow: var(--shadow-glow); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--peach-400), var(--ember-500));
+  color: white;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-ember), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--peach-400);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+.btn-danger:hover:not(:disabled) { background: #B33838; }
+
+.btn-sm { padding: 6px 12px; font-size: var(--text-xs); }
+.btn-lg { padding: 14px 24px; font-size: var(--text-base); }
+
+/* ═══════════════════════════════════════════════════════════════
+   FORMS
+   ═══════════════════════════════════════════════════════════════ */
+.input, .select {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  transition: all var(--dur-fast) var(--ease);
+}
+.input:focus, .select:focus {
+  outline: none;
+  border-color: var(--peach-400);
+  box-shadow: var(--shadow-glow);
+}
+.input::placeholder { color: var(--text-muted); }
+
+.label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--text);
+}
+.hint { font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px; }
+
+/* Toggle */
+.toggle {
+  position: relative;
+  width: 44px; height: 24px;
+  background: var(--cream-300);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease);
+}
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 20px; height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform var(--dur) var(--ease-spring);
+  box-shadow: var(--shadow-sm);
+}
+.toggle.on {
+  background: linear-gradient(180deg, var(--peach-400), var(--ember-500));
+}
+.toggle.on::after { transform: translateX(20px); }
+
+/* Checkbox */
+.check {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--dur-fast) var(--ease);
+  background: var(--surface);
+}
+.check.checked {
+  background: linear-gradient(180deg, var(--peach-400), var(--ember-500));
+  border-color: var(--ember-500);
+}
+.check.checked::after {
+  content: "";
+  width: 10px; height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BADGES
+   ═══════════════════════════════════════════════════════════════ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  border-radius: var(--r-full);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.badge-peach  { background: var(--peach-100); color: var(--peach-800); }
+.badge-ember  { background: #FCE1D3; color: var(--ember-600); }
+.badge-success{ background: var(--success-bg); color: #3E7525; }
+.badge-warn   { background: var(--warning-bg); color: #8A5E10; }
+.badge-danger { background: var(--danger-bg); color: #8F2525; }
+.badge-info   { background: var(--info-bg); color: #2B5A95; }
+.badge-dusk   { background: var(--dusk-50); color: var(--dusk-700); }
+[data-theme="dark"] .badge-peach { background: rgba(255,190,152,0.15); color: var(--peach-300); }
+[data-theme="dark"] .badge-success { background: rgba(107,174,79,0.15); color: #9FD482; }
+[data-theme="dark"] .badge-warn { background: rgba(232,166,43,0.15); color: #F5C66B; }
+[data-theme="dark"] .badge-danger { background: rgba(209,69,69,0.15); color: #F08585; }
+
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+/* Status indicator with pulsing dot */
+.status { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); }
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  position: relative;
+}
+.status-dot::after {
+  content: "";
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  animation: ring 2s var(--ease) infinite;
+}
+.status-online .status-dot { background: var(--success); }
+.status-online .status-dot::after { background: var(--success); opacity: 0.3; }
+.status-laggy .status-dot { background: var(--warning); }
+.status-laggy .status-dot::after { background: var(--warning); opacity: 0.3; }
+.status-off .status-dot { background: var(--cream-400); }
+
+@keyframes ring {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════════════════════ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--space-6);
+  transition: all var(--dur) var(--ease);
+}
+.card:hover { box-shadow: var(--shadow-md); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+/* Server card — domain specific */
+.server-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.server-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.server-card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 80, "opsz" 20;
+}
+.server-card-sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.server-card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+}
+.stat { text-align: center; }
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-lg);
+  font-variation-settings: "SOFT" 60;
+}
+
+/* Gauge */
+.gauge {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gauge-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-xs);
+}
+.gauge-label { color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; }
+.gauge-val { font-family: var(--font-mono); font-weight: 600; }
+.gauge-track {
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.gauge-fill {
+  height: 100%;
+  border-radius: var(--r-full);
+  background: linear-gradient(90deg, var(--peach-300), var(--ember-500));
+  transition: width var(--dur-slow) var(--ease);
+}
+.gauge-fill.ok { background: linear-gradient(90deg, #9CCF7D, var(--success)); }
+.gauge-fill.high { background: linear-gradient(90deg, var(--warning), var(--danger)); }
+
+/* Plan/pricing card */
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+.plan {
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: relative;
+  transition: all var(--dur) var(--ease);
+}
+.plan:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.plan.featured {
+  background: linear-gradient(180deg, var(--peach-50) 0%, var(--surface) 40%);
+  border-color: var(--peach-300);
+  box-shadow: var(--shadow-md);
+}
+[data-theme="dark"] .plan.featured {
+  background: linear-gradient(180deg, rgba(255,190,152,0.08) 0%, var(--surface) 50%);
+  border-color: var(--peach-400);
+}
+.plan-tag {
+  position: absolute;
+  top: -10px;
+  right: var(--space-6);
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: linear-gradient(180deg, var(--peach-400), var(--ember-500));
+  color: white;
+  border-radius: var(--r-full);
+  font-weight: 600;
+}
+.plan-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-2xl);
+  letter-spacing: -0.02em;
+  font-variation-settings: "SOFT" 80, "opsz" 24;
+}
+.plan-tagline {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: var(--space-2) 0;
+}
+.plan-price-amount {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 100, "opsz" 48;
+}
+.plan-price-unit { color: var(--text-muted); font-size: var(--text-sm); }
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  flex-grow: 1;
+}
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.plan-features li::before {
+  content: "";
+  width: 16px; height: 16px;
+  background: var(--peach-100);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M4 8l3 3 5-6' fill='none' stroke='%23B4502A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ALERTS / TOASTS
+   ═══════════════════════════════════════════════════════════════ */
+.alert {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  font-size: var(--text-sm);
+  align-items: flex-start;
+}
+.alert-icon {
+  width: 20px; height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.alert-title { font-weight: 600; margin-bottom: 2px; }
+.alert-info { background: var(--info-bg); border-color: #B8D0E8; color: #1F4776; }
+.alert-success { background: var(--success-bg); border-color: #B8DCA0; color: #2C5A18; }
+.alert-warning { background: var(--warning-bg); border-color: #F0D591; color: #704B0B; }
+.alert-danger { background: var(--danger-bg); border-color: #E8AEAE; color: #701F1F; }
+[data-theme="dark"] .alert-info { background: rgba(91,143,201,0.1); border-color: rgba(91,143,201,0.3); color: #A8C8E8; }
+[data-theme="dark"] .alert-success { background: rgba(107,174,79,0.1); border-color: rgba(107,174,79,0.3); color: #B5D9A0; }
+[data-theme="dark"] .alert-warning { background: rgba(232,166,43,0.1); border-color: rgba(232,166,43,0.3); color: #F0CF8B; }
+[data-theme="dark"] .alert-danger { background: rgba(209,69,69,0.1); border-color: rgba(209,69,69,0.3); color: #E8A5A5; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TABS
+   ═══════════════════════════════════════════════════════════════ */
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--surface-2);
+  padding: 4px;
+  border-radius: var(--r-sm);
+  width: fit-content;
+}
+.tab {
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  border-radius: calc(var(--r-sm) - 2px);
+  cursor: pointer;
+  color: var(--text-soft);
+  transition: all var(--dur-fast) var(--ease);
+}
+.tab.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLE
+   ═══════════════════════════════════════════════════════════════ */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.table th, .table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--border);
+}
+.table th {
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: var(--surface-2); }
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV / LANDING MOCK
+   ═══════════════════════════════════════════════════════════════ */
+.nav-mock {
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+  font-variation-settings: "SOFT" 80;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.nav-logo-icon {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--peach-300), var(--ember-500));
+}
+.nav-links {
+  display: flex;
+  gap: var(--space-5);
+  flex-grow: 1;
+}
+.nav-links a {
+  font-size: var(--text-sm);
+  color: var(--text-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* ═══════════════════════════════════════════════════════════════
+   ICONOGRAPHY
+   ═══════════════════════════════════════════════════════════════ */
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: var(--space-3);
+}
+.icon-box {
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--peach-700);
+}
+[data-theme="dark"] .icon-box { color: var(--peach-300); }
+.icon-box svg {
+  width: 24px; height: 24px;
+  stroke-width: 1.75;
+}
+.icon-box span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════ */
+.footer {
+  margin-top: var(--space-20);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME TOGGLE
+   ═══════════════════════════════════════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 10;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  color: var(--text);
+  transition: transform var(--dur) var(--ease-spring);
+}
+.theme-toggle:hover { transform: rotate(15deg) scale(1.05); }
+
+/* Utilities */
+.stack { display: flex; flex-direction: column; }
+.cluster { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.gap-2 { gap: var(--space-2); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .shell { grid-template-columns: 1fr; }
+  .sidebar { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  .main { padding: var(--space-8) var(--space-6); }
+  .plan-grid, .sem-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-logo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3c-1 3 2 5 0 9-2-2-4-2-4-5 0-1.5 1.5-3 4-4zm0 0c2 3-1 6 2 10 2-3 3-5 3-8 0-2-2-2-5-2z" fill="white"/></svg>
+      </div>
+      <span class="sidebar-brand-text">Campfire</span>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Fondations</div>
+      <a href="#brand" class="sidebar-link active">Identité</a>
+      <a href="#couleurs" class="sidebar-link">Couleurs</a>
+      <a href="#typo" class="sidebar-link">Typographie</a>
+      <a href="#espaces" class="sidebar-link">Espaces &amp; rayons</a>
+      <a href="#ombres" class="sidebar-link">Ombres</a>
+      <a href="#icones" class="sidebar-link">Icônes</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Composants</div>
+      <a href="#boutons" class="sidebar-link">Boutons</a>
+      <a href="#forms" class="sidebar-link">Formulaires</a>
+      <a href="#badges" class="sidebar-link">Badges &amp; Status</a>
+      <a href="#cards" class="sidebar-link">Cards</a>
+      <a href="#serveurs" class="sidebar-link">Serveurs</a>
+      <a href="#plans" class="sidebar-link">Plans</a>
+      <a href="#alerts" class="sidebar-link">Alerts</a>
+      <a href="#tabs" class="sidebar-link">Tabs &amp; Table</a>
+      <a href="#nav" class="sidebar-link">Navigation</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Patterns</div>
+      <a href="#landing" class="sidebar-link">Landing mock</a>
+      <a href="#voice" class="sidebar-link">Voix &amp; ton</a>
+    </div>
+  </aside>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero" id="brand">
+      <div class="hero-eyebrow">Design System · v0.1 · Peach Fuzz</div>
+      <h1 class="hero-title">Host your world,<br><em>keep it cozy.</em></h1>
+      <p class="hero-sub">Un design system pour un hébergeur de serveurs gaming. Chaleureux, tactile, lisible — l'anti-néon. Construit autour de Pantone 13-1023 <strong>Peach Fuzz</strong>, d'une typo <em>Fraunces</em> qui respire et d'une grammaire de composants pensée pour afficher latence, RAM, players et uptime sans friction.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><span>Couleur</span><strong>#FFBE98</strong></div>
+        <div class="hero-meta-item"><span>Display</span><strong>Fraunces</strong></div>
+        <div class="hero-meta-item"><span>Body</span><strong>Manrope</strong></div>
+        <div class="hero-meta-item"><span>Mono</span><strong>JetBrains Mono</strong></div>
+        <div class="hero-meta-item"><span>Mode</span><strong>Light + Dark</strong></div>
+      </div>
+
+      <!-- Decorative flame -->
+      <svg class="hero-flame" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="flame" cx="50%" cy="60%" r="50%">
+            <stop offset="0%" stop-color="#FFE8D8" stop-opacity="0.9"/>
+            <stop offset="40%" stop-color="#FFBE98" stop-opacity="0.7"/>
+            <stop offset="80%" stop-color="#D94F1E" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#542413" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <path d="M100 30 Q 70 80 80 120 Q 60 130 70 160 Q 100 180 130 160 Q 140 130 120 120 Q 130 80 100 30 Z" fill="url(#flame)"/>
+        <path d="M100 70 Q 85 100 92 130 Q 100 145 108 130 Q 115 100 100 70 Z" fill="#FFE8D8" opacity="0.8"/>
+      </svg>
+    </section>
+
+    <!-- NAMES -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-num">00</span>
+        <h2 class="section-title">Propositions de nom</h2>
+      </div>
+      <p class="section-desc">Tous orientés gaming/communauté. <strong>Campfire</strong> est utilisé en ancrage dans ce document — mais n'importe lequel fonctionne avec le system.</p>
+      <div class="names-grid">
+        <div class="name-card featured">
+          <span class="name-card-tag">★ Recommandé</span>
+          <h4>Campfire</h4>
+          <p>On se réunit autour. Évoque gaming coop, chaleur, communauté Minecraft/Valheim.</p>
+        </div>
+        <div class="name-card">
+          <span class="name-card-tag">Fort</span>
+          <h4>Ember</h4>
+          <p>Braise vivante. Court, .gg dispo, sonorité anglo-saxonne.</p>
+        </div>
+        <div class="name-card">
+          <span class="name-card-tag">Fort</span>
+          <h4>Hearth</h4>
+          <p>Le foyer. Sous-entend "home server". Léger, élégant.</p>
+        </div>
+        <div class="name-card">
+          <h4>Kindle</h4>
+          <p>"Allumer le feu". Verbe d'action, démarrage.</p>
+        </div>
+        <div class="name-card">
+          <h4>Nestr</h4>
+          <p>Pour ton nid de serveurs. Nom court, casual.</p>
+        </div>
+        <div class="name-card">
+          <h4>Fuzz</h4>
+          <p>Clin d'œil direct à Peach Fuzz. Friendly, mémorable.</p>
+        </div>
+        <div class="name-card">
+          <h4>Pit</h4>
+          <p>Référence Minecraft (the Nether). Edgy, court.</p>
+        </div>
+        <div class="name-card">
+          <h4>Cozyhost</h4>
+          <p>Explicite. Dit tout, tout de suite.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLORS -->
+    <section class="section" id="couleurs">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Couleurs</h2>
+      </div>
+      <p class="section-desc">Peach est la famille principale. Ember donne de la chaleur aux CTAs. Dusk sert de contre-point froid pour les graphiques. Cream pour les neutres (jamais de gris bleuté — l'undertone est chaud).</p>
+
+      <!-- Peach -->
+      <div class="palette-group">
+        <div class="palette-group-header">
+          <h3 class="palette-group-name">Peach</h3>
+          <p class="palette-group-desc">Couleur principale. 300 = Pantone 13-1023. Utiliser 400–600 pour les CTAs, 50–200 pour les fonds et highlights.</p>
+        </div>
+        <div class="swatches">
+          <div class="swatch" style="background:#FFF6F0;color:#542413"><span class="swatch-name">peach/50</span><span class="swatch-hex">#FFF6F0</span></div>
+          <div class="swatch" style="background:#FFE8D8;color:#542413"><span class="swatch-name">peach/100</span><span class="swatch-hex">#FFE8D8</span></div>
+          <div class="swatch" style="background:#FFD4B8;color:#542413"><span class="swatch-name">peach/200</span><span class="swatch-hex">#FFD4B8</span></div>
+          <div class="swatch marker" style="background:#FFBE98;color:#542413"><span class="swatch-badge">Peach Fuzz</span><span class="swatch-name">peach/300</span><span class="swatch-hex">#FFBE98</span></div>
+          <div class="swatch" style="background:#FFA574;color:#542413"><span class="swatch-name">peach/400</span><span class="swatch-hex">#FFA574</span></div>
+          <div class="swatch" style="background:#F58856;color:white"><span class="swatch-name">peach/500</span><span class="swatch-hex">#F58856</span></div>
+          <div class="swatch" style="background:#DC6B3A;color:white"><span class="swatch-name">peach/600</span><span class="swatch-hex">#DC6B3A</span></div>
+          <div class="swatch" style="background:#B4502A;color:white"><span class="swatch-name">peach/700</span><span class="swatch-hex">#B4502A</span></div>
+          <div class="swatch" style="background:#87391E;color:white"><span class="swatch-name">peach/800</span><span class="swatch-hex">#87391E</span></div>
+          <div class="swatch" style="background:#542413;color:white"><span class="swatch-name">peach/900</span><span class="swatch-hex">#542413</span></div>
+        </div>
+      </div>
+
+      <!-- Ember -->
+      <div class="palette-group">
+        <div class="palette-group-header">
+          <h3 class="palette-group-name">Ember</h3>
+          <p class="palette-group-desc">Accent chaud pour CTA primary, hover states, glow. À utiliser avec parcimonie — c'est la braise.</p>
+        </div>
+        <div class="swatches">
+          <div class="swatch" style="background:#E8653A;color:white"><span class="swatch-name">ember/400</span><span class="swatch-hex">#E8653A</span></div>
+          <div class="swatch" style="background:#D94F1E;color:white"><span class="swatch-name">ember/500</span><span class="swatch-hex">#D94F1E</span></div>
+          <div class="swatch" style="background:#B33A10;color:white"><span class="swatch-name">ember/600</span><span class="swatch-hex">#B33A10</span></div>
+        </div>
+      </div>
+
+      <!-- Dusk -->
+      <div class="palette-group">
+        <div class="palette-group-header">
+          <h3 class="palette-group-name">Dusk</h3>
+          <p class="palette-group-desc">Complémentaire froide : graphiques multi-séries, data-viz, contraste sur marketing secondaire.</p>
+        </div>
+        <div class="swatches">
+          <div class="swatch" style="background:#F1F1F6;color:#1F1D38"><span class="swatch-name">dusk/50</span><span class="swatch-hex">#F1F1F6</span></div>
+          <div class="swatch" style="background:#C7C5DB;color:#1F1D38"><span class="swatch-name">dusk/200</span><span class="swatch-hex">#C7C5DB</span></div>
+          <div class="swatch" style="background:#7D7AAD;color:white"><span class="swatch-name">dusk/400</span><span class="swatch-hex">#7D7AAD</span></div>
+          <div class="swatch" style="background:#5E5B8C;color:white"><span class="swatch-name">dusk/500</span><span class="swatch-hex">#5E5B8C</span></div>
+          <div class="swatch" style="background:#3C3962;color:white"><span class="swatch-name">dusk/700</span><span class="swatch-hex">#3C3962</span></div>
+          <div class="swatch" style="background:#1F1D38;color:white"><span class="swatch-name">dusk/900</span><span class="swatch-hex">#1F1D38</span></div>
+        </div>
+      </div>
+
+      <!-- Cream -->
+      <div class="palette-group">
+        <div class="palette-group-header">
+          <h3 class="palette-group-name">Cream</h3>
+          <p class="palette-group-desc">Neutres chauds. Remplace les gris classiques — l'undertone reste dans la famille peach pour garder la chaleur.</p>
+        </div>
+        <div class="swatches">
+          <div class="swatch" style="background:#FBF8F4;color:#140E09"><span class="swatch-name">cream/50</span><span class="swatch-hex">#FBF8F4</span></div>
+          <div class="swatch" style="background:#F5EEE5;color:#140E09"><span class="swatch-name">cream/100</span><span class="swatch-hex">#F5EEE5</span></div>
+          <div class="swatch" style="background:#E8DFD1;color:#140E09"><span class="swatch-name">cream/200</span><span class="swatch-hex">#E8DFD1</span></div>
+          <div class="swatch" style="background:#D2C5B0;color:#140E09"><span class="swatch-name">cream/300</span><span class="swatch-hex">#D2C5B0</span></div>
+          <div class="swatch" style="background:#A69680;color:white"><span class="swatch-name">cream/400</span><span class="swatch-hex">#A69680</span></div>
+          <div class="swatch" style="background:#7A6B58;color:white"><span class="swatch-name">cream/500</span><span class="swatch-hex">#7A6B58</span></div>
+          <div class="swatch" style="background:#56493A;color:white"><span class="swatch-name">cream/600</span><span class="swatch-hex">#56493A</span></div>
+          <div class="swatch" style="background:#3A2F24;color:white"><span class="swatch-name">cream/700</span><span class="swatch-hex">#3A2F24</span></div>
+          <div class="swatch" style="background:#241C14;color:white"><span class="swatch-name">cream/800</span><span class="swatch-hex">#241C14</span></div>
+          <div class="swatch" style="background:#140E09;color:white"><span class="swatch-name">cream/900</span><span class="swatch-hex">#140E09</span></div>
+        </div>
+      </div>
+
+      <!-- Semantic -->
+      <div class="palette-group">
+        <div class="palette-group-header">
+          <h3 class="palette-group-name">Sémantiques</h3>
+          <p class="palette-group-desc">Tons saturés mais adoucis — jamais de néon cru. Doivent cohabiter avec le peach sans crier.</p>
+        </div>
+        <div class="sem-row">
+          <div class="sem-card">
+            <div class="sem-dot" style="background:#6BAE4F"></div>
+            <h5>Success</h5>
+            <code>#6BAE4F</code>
+          </div>
+          <div class="sem-card">
+            <div class="sem-dot" style="background:#E8A62B"></div>
+            <h5>Warning</h5>
+            <code>#E8A62B</code>
+          </div>
+          <div class="sem-card">
+            <div class="sem-dot" style="background:#D14545"></div>
+            <h5>Danger</h5>
+            <code>#D14545</code>
+          </div>
+          <div class="sem-card">
+            <div class="sem-dot" style="background:#5B8FC9"></div>
+            <h5>Info</h5>
+            <code>#5B8FC9</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="section" id="typo">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Typographie</h2>
+      </div>
+      <p class="section-desc">Trois polices. <strong>Fraunces</strong> (variable, opsz + SOFT) pour les titres qui doivent avoir du caractère — la couleur et les arrondis s'adaptent. <strong>Manrope</strong> pour le corps, dessiné pour la lisibilité. <strong>JetBrains Mono</strong> pour le code, les IDs de serveur et les logs.</p>
+
+      <!-- Display -->
+      <div class="type-specimen">
+        <div class="type-meta">Display<br>Fraunces Variable<br>opsz 144 · SOFT 100</div>
+        <div class="type-sample" style="font-family:var(--font-display);font-variation-settings:'SOFT' 100,'opsz' 144;font-weight:400;">Play together.</div>
+        <div class="type-weights">
+          <span style="font-family:var(--font-display);font-variation-settings:'SOFT' 100;font-weight:300"><em>Light 300</em>Campfire</span>
+          <span style="font-family:var(--font-display);font-variation-settings:'SOFT' 100;font-weight:400"><em>Regular 400</em>Campfire</span>
+          <span style="font-family:var(--font-display);font-variation-settings:'SOFT' 100;font-weight:500"><em>Medium 500</em>Campfire</span>
+          <span style="font-family:var(--font-display);font-variation-settings:'SOFT' 100;font-weight:600"><em>Semibold 600</em>Campfire</span>
+          <span style="font-family:var(--font-display);font-style:italic;font-variation-settings:'SOFT' 100;font-weight:400"><em>Italic</em>Campfire</span>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="type-specimen">
+        <div class="type-meta">Body<br>Manrope Variable<br>300–800</div>
+        <p style="font-family:var(--font-body);font-size:var(--text-xl);font-weight:400;line-height:1.55;max-width:60ch;">Votre serveur démarre en 30 secondes, avec un panel qui ne vous fait pas pleurer. On s'occupe de l'infra, vous jouez.</p>
+        <div class="type-weights">
+          <span style="font-weight:300"><em>Light</em>Campfire</span>
+          <span style="font-weight:400"><em>Regular</em>Campfire</span>
+          <span style="font-weight:500"><em>Medium</em>Campfire</span>
+          <span style="font-weight:600"><em>Semibold</em>Campfire</span>
+          <span style="font-weight:700"><em>Bold</em>Campfire</span>
+        </div>
+      </div>
+
+      <!-- Mono -->
+      <div class="type-specimen">
+        <div class="type-meta">Mono<br>JetBrains Mono</div>
+        <code style="font-family:var(--font-mono);font-size:var(--text-2xl);display:block;white-space:pre-line;color:var(--peach-700);">$ campfire deploy minecraft
+→ node-fra-03 · 128 ms · online</code>
+      </div>
+
+      <!-- Scale -->
+      <h3 class="palette-group-name" style="margin-bottom:var(--space-4);">Échelle</h3>
+      <div class="type-scale">
+        <div class="type-scale-row"><code>text-xs</code><span class="size">12 / 16</span><span style="font-size:var(--text-xs)">Le feu continue de brûler doucement</span></div>
+        <div class="type-scale-row"><code>text-sm</code><span class="size">14 / 20</span><span style="font-size:var(--text-sm)">Le feu continue de brûler doucement</span></div>
+        <div class="type-scale-row"><code>text-base</code><span class="size">16 / 26</span><span style="font-size:var(--text-base)">Le feu continue de brûler doucement</span></div>
+        <div class="type-scale-row"><code>text-lg</code><span class="size">18 / 28</span><span style="font-size:var(--text-lg)">Le feu continue de brûler doucement</span></div>
+        <div class="type-scale-row"><code>text-xl</code><span class="size">20 / 30</span><span style="font-size:var(--text-xl)">Le feu continue de brûler doucement</span></div>
+        <div class="type-scale-row"><code>text-2xl</code><span class="size">24 / 32</span><span style="font-size:var(--text-2xl);font-family:var(--font-display);font-weight:500">Le feu continue</span></div>
+        <div class="type-scale-row"><code>text-3xl</code><span class="size">30 / 38</span><span style="font-size:var(--text-3xl);font-family:var(--font-display);font-weight:500">Le feu continue</span></div>
+        <div class="type-scale-row"><code>text-4xl</code><span class="size">36 / 44</span><span style="font-size:var(--text-4xl);font-family:var(--font-display);font-weight:500;letter-spacing:-0.02em">Le feu</span></div>
+        <div class="type-scale-row"><code>text-5xl</code><span class="size">48 / 52</span><span style="font-size:var(--text-5xl);font-family:var(--font-display);font-weight:400;letter-spacing:-0.03em">Le feu</span></div>
+      </div>
+    </section>
+
+    <!-- SPACING / RADIUS -->
+    <section class="section" id="espaces">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Espaces &amp; rayons</h2>
+      </div>
+      <p class="section-desc">Base 4px. Rayons généreux (8–32px) pour renforcer le côté friendly — rien de tranchant.</p>
+
+      <h3 class="palette-group-name" style="margin-bottom:var(--space-4);">Spacing</h3>
+      <div class="tokens-grid" style="margin-bottom:var(--space-10);">
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:4px;height:60px"></div></div><div class="token-label">space-1</div><div class="token-value">4px</div></div>
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:8px;height:60px"></div></div><div class="token-label">space-2</div><div class="token-value">8px</div></div>
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:12px;height:60px"></div></div><div class="token-label">space-3</div><div class="token-value">12px</div></div>
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:16px;height:60px"></div></div><div class="token-label">space-4</div><div class="token-value">16px</div></div>
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:24px;height:60px"></div></div><div class="token-label">space-6</div><div class="token-value">24px</div></div>
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:32px;height:60px"></div></div><div class="token-label">space-8</div><div class="token-value">32px</div></div>
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:48px;height:60px"></div></div><div class="token-label">space-12</div><div class="token-value">48px</div></div>
+        <div class="token-box"><div class="viz"><div class="space-viz" style="width:64px;height:60px"></div></div><div class="token-label">space-16</div><div class="token-value">64px</div></div>
+      </div>
+
+      <h3 class="palette-group-name" style="margin-bottom:var(--space-4);">Radius</h3>
+      <div class="tokens-grid">
+        <div class="token-box"><div class="viz"><div class="radius-viz" style="border-radius:4px"></div></div><div class="token-label">r-xs</div><div class="token-value">4px</div></div>
+        <div class="token-box"><div class="viz"><div class="radius-viz" style="border-radius:8px"></div></div><div class="token-label">r-sm</div><div class="token-value">8px</div></div>
+        <div class="token-box"><div class="viz"><div class="radius-viz" style="border-radius:12px"></div></div><div class="token-label">r-md</div><div class="token-value">12px</div></div>
+        <div class="token-box"><div class="viz"><div class="radius-viz" style="border-radius:16px"></div></div><div class="token-label">r-lg</div><div class="token-value">16px</div></div>
+        <div class="token-box"><div class="viz"><div class="radius-viz" style="border-radius:24px"></div></div><div class="token-label">r-xl</div><div class="token-value">24px</div></div>
+        <div class="token-box"><div class="viz"><div class="radius-viz" style="border-radius:32px"></div></div><div class="token-label">r-2xl</div><div class="token-value">32px</div></div>
+        <div class="token-box"><div class="viz"><div class="radius-viz" style="border-radius:50%"></div></div><div class="token-label">r-full</div><div class="token-value">9999px</div></div>
+      </div>
+    </section>
+
+    <!-- SHADOWS -->
+    <section class="section" id="ombres">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Ombres</h2>
+      </div>
+      <p class="section-desc">Teintées chaud (rgba de cream-900, pas du noir pur). Une ombre spéciale <code>shadow-ember</code> pour les CTAs et un <code>shadow-glow</code> pour les focus rings.</p>
+      <div class="tokens-grid">
+        <div class="token-box"><div class="viz"><div class="shadow-viz" style="box-shadow:var(--shadow-xs)"></div></div><div class="token-label">shadow-xs</div></div>
+        <div class="token-box"><div class="viz"><div class="shadow-viz" style="box-shadow:var(--shadow-sm)"></div></div><div class="token-label">shadow-sm</div></div>
+        <div class="token-box"><div class="viz"><div class="shadow-viz" style="box-shadow:var(--shadow-md)"></div></div><div class="token-label">shadow-md</div></div>
+        <div class="token-box"><div class="viz"><div class="shadow-viz" style="box-shadow:var(--shadow-lg)"></div></div><div class="token-label">shadow-lg</div></div>
+        <div class="token-box"><div class="viz"><div class="shadow-viz" style="box-shadow:var(--shadow-xl)"></div></div><div class="token-label">shadow-xl</div></div>
+        <div class="token-box"><div class="viz"><div class="shadow-viz" style="box-shadow:var(--shadow-ember)"></div></div><div class="token-label">shadow-ember</div></div>
+      </div>
+    </section>
+
+    <!-- ICONS -->
+    <section class="section" id="icones">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Iconographie</h2>
+      </div>
+      <p class="section-desc">Style ligne, stroke 1.75px, terminaisons arrondies (<code>stroke-linecap: round</code>). Taille de base 24×24. Éviter les icônes remplies sauf pour les badges d'état. Recommandation : <strong>Lucide</strong> (gratuit, cohérent, open-source) avec quelques icônes custom pour le domaine gaming (Minecraft block, player head, tickrate).</p>
+      <div class="icons-grid">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="6" rx="2"/><circle cx="6" cy="8" r="1" fill="currentColor"/><circle cx="6" cy="17" r="1" fill="currentColor"/></svg><span>server</span></div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg><span>player</span></div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M22 12h-4M6 12H2M19 5l-3 3M8 16l-3 3M19 19l-3-3M8 8 5 5"/><circle cx="12" cy="12" r="3"/></svg><span>status</span></div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l4-4M7 16V8l5-5 5 5v8M7 16h10"/></svg><span>deploy</span></div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M12 12l3-2"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg><span>latency</span></div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="18" height="10" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg><span>lock</span></div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg><span>uptime</span></div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 6-9 6-9-6 9-6z"/><path d="M3 15l9 6 9-6"/></svg><span>block</span></div>
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section class="section" id="boutons">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Boutons</h2>
+      </div>
+      <p class="section-desc">Le primary utilise un gradient peach → ember pour rappeler la flamme. Les autres variantes restent calmes pour laisser respirer le CTA.</p>
+
+      <div class="card" style="margin-bottom:var(--space-4)">
+        <div class="palette-group-header" style="margin-bottom:var(--space-4)"><h3 class="palette-group-name" style="font-size:var(--text-lg)">Variantes</h3></div>
+        <div class="cluster gap-4">
+          <button class="btn btn-primary">Déployer le serveur</button>
+          <button class="btn btn-secondary">Annuler</button>
+          <button class="btn btn-ghost">En savoir plus</button>
+          <button class="btn btn-danger">Supprimer</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="palette-group-header" style="margin-bottom:var(--space-4)"><h3 class="palette-group-name" style="font-size:var(--text-lg)">Tailles &amp; icônes</h3></div>
+        <div class="cluster gap-4">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Medium</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Nouveau serveur</button>
+          <button class="btn btn-primary">Lancer <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMS -->
+    <section class="section" id="forms">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Formulaires</h2>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <label class="label">Nom du serveur</label>
+          <input class="input" placeholder="survival-amis" value="survival-amis">
+          <div class="hint">Lettres, chiffres et tirets. Max 32 caractères.</div>
+
+          <div style="margin-top:var(--space-5)">
+            <label class="label">Type de jeu</label>
+            <select class="select">
+              <option>Minecraft Java</option>
+              <option>Minecraft Bedrock</option>
+              <option>Valheim</option>
+              <option>Rust</option>
+              <option>Palworld</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stack gap-4">
+            <div class="cluster" style="justify-content:space-between">
+              <div><strong>Backups automatiques</strong><div class="hint">Toutes les 6h, 7 jours de rétention</div></div>
+              <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="cluster" style="justify-content:space-between">
+              <div><strong>DDoS protection</strong><div class="hint">Inclus dans tous les plans</div></div>
+              <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="cluster" style="justify-content:space-between">
+              <div><strong>Mode cracked</strong><div class="hint">Autoriser les joueurs non-premium</div></div>
+              <div class="toggle" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="cluster">
+              <div class="check checked" onclick="this.classList.toggle('checked')"></div>
+              <span>J'accepte les <a href="#" style="color:var(--peach-700)">CGU</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BADGES -->
+    <section class="section" id="badges">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2 class="section-title">Badges &amp; status</h2>
+      </div>
+      <p class="section-desc">Les badges utilisent la typo mono pour la technicité. Les status combinent un point pulsé avec un label — pattern pensé pour les listes de serveurs.</p>
+
+      <div class="card" style="margin-bottom:var(--space-4)">
+        <div class="cluster gap-2">
+          <span class="badge badge-peach">Peach</span>
+          <span class="badge badge-ember">Ember</span>
+          <span class="badge badge-success"><span class="badge-dot" style="background:#6BAE4F"></span> Online</span>
+          <span class="badge badge-warn">Laggy</span>
+          <span class="badge badge-danger">Down</span>
+          <span class="badge badge-info">Info</span>
+          <span class="badge badge-dusk">Beta</span>
+          <span class="badge badge-peach">v1.21.4</span>
+          <span class="badge badge-ember">PRO</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cluster gap-6">
+          <div class="status status-online"><div class="status-dot"></div> Online · 12 / 20 joueurs</div>
+          <div class="status status-laggy"><div class="status-dot"></div> Ralentissements · 38ms</div>
+          <div class="status status-off"><div class="status-dot"></div> Offline · maintenance</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARDS -->
+    <section class="section" id="cards">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2 class="section-title">Cards génériques</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3 style="font-family:var(--font-display);font-weight:500;font-size:var(--text-xl);font-variation-settings:'SOFT' 80;margin-bottom:var(--space-2)">Setup en 30s</h3>
+          <p style="color:var(--text-soft);font-size:var(--text-sm)">Choisissez un jeu, un plan, c'est parti. Pas de config bizarre, pas de Java Error 1.8.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-family:var(--font-display);font-weight:500;font-size:var(--text-xl);font-variation-settings:'SOFT' 80;margin-bottom:var(--space-2)">Panel moderne</h3>
+          <p style="color:var(--text-soft);font-size:var(--text-sm)">Console, fichiers, backups, mods. Tout à portée sans ouvrir FileZilla en 2026.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-family:var(--font-display);font-weight:500;font-size:var(--text-xl);font-variation-settings:'SOFT' 80;margin-bottom:var(--space-2)">Support humain</h3>
+          <p style="color:var(--text-soft);font-size:var(--text-sm)">Discord + ticket. Répondu par des gens qui jouent, pas des scripts.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVER CARDS + GAUGES -->
+    <section class="section" id="serveurs">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2 class="section-title">Cards serveur</h2>
+      </div>
+      <p class="section-desc">Pattern central de l'app : une card par serveur, avec jauges RAM/CPU/TPS, un status pulsé, le tick du monde.</p>
+
+      <div class="card-grid">
+        <div class="card server-card">
+          <div class="server-card-head">
+            <div>
+              <div class="server-card-title">survival-amis</div>
+              <div class="server-card-sub">Minecraft 1.21.4 · Paper · fra-03</div>
+            </div>
+            <div class="status status-online"><div class="status-dot"></div></div>
+          </div>
+          <div class="server-card-stats">
+            <div class="stat"><div class="stat-label">Joueurs</div><div class="stat-value">12 / 20</div></div>
+            <div class="stat"><div class="stat-label">Ping</div><div class="stat-value">24ms</div></div>
+            <div class="stat"><div class="stat-label">TPS</div><div class="stat-value">20.0</div></div>
+          </div>
+          <div class="stack gap-2">
+            <div class="gauge"><div class="gauge-head"><span class="gauge-label">RAM</span><span class="gauge-val">4.2 / 8 GB</span></div><div class="gauge-track"><div class="gauge-fill" style="width:52%"></div></div></div>
+            <div class="gauge"><div class="gauge-head"><span class="gauge-label">CPU</span><span class="gauge-val">38%</span></div><div class="gauge-track"><div class="gauge-fill ok" style="width:38%"></div></div></div>
+            <div class="gauge"><div class="gauge-head"><span class="gauge-label">Disk</span><span class="gauge-val">14 / 50 GB</span></div><div class="gauge-track"><div class="gauge-fill ok" style="width:28%"></div></div></div>
+          </div>
+          <div class="cluster gap-2">
+            <button class="btn btn-primary btn-sm">Console</button>
+            <button class="btn btn-secondary btn-sm">Redémarrer</button>
+            <button class="btn btn-ghost btn-sm">Backup</button>
+          </div>
+        </div>
+
+        <div class="card server-card">
+          <div class="server-card-head">
+            <div>
+              <div class="server-card-title">rust-hardcore</div>
+              <div class="server-card-sub">Rust · wipe J-2 · fra-01</div>
+            </div>
+            <div class="status status-laggy"><div class="status-dot"></div></div>
+          </div>
+          <div class="server-card-stats">
+            <div class="stat"><div class="stat-label">Joueurs</div><div class="stat-value">78 / 100</div></div>
+            <div class="stat"><div class="stat-label">Ping</div><div class="stat-value">38ms</div></div>
+            <div class="stat"><div class="stat-label">FPS</div><div class="stat-value">58</div></div>
+          </div>
+          <div class="stack gap-2">
+            <div class="gauge"><div class="gauge-head"><span class="gauge-label">RAM</span><span class="gauge-val">12.8 / 16 GB</span></div><div class="gauge-track"><div class="gauge-fill high" style="width:80%"></div></div></div>
+            <div class="gauge"><div class="gauge-head"><span class="gauge-label">CPU</span><span class="gauge-val">82%</span></div><div class="gauge-track"><div class="gauge-fill high" style="width:82%"></div></div></div>
+            <div class="gauge"><div class="gauge-head"><span class="gauge-label">Disk</span><span class="gauge-val">42 / 80 GB</span></div><div class="gauge-track"><div class="gauge-fill" style="width:52%"></div></div></div>
+          </div>
+          <div class="cluster gap-2">
+            <button class="btn btn-primary btn-sm">Console</button>
+            <button class="btn btn-secondary btn-sm">Upgrade</button>
+            <button class="btn btn-ghost btn-sm">Logs</button>
+          </div>
+        </div>
+
+        <div class="card server-card">
+          <div class="server-card-head">
+            <div>
+              <div class="server-card-title">valheim-vikings</div>
+              <div class="server-card-sub">Valheim · fra-02</div>
+            </div>
+            <div class="status status-off"><div class="status-dot"></div></div>
+          </div>
+          <div class="server-card-stats">
+            <div class="stat"><div class="stat-label">Joueurs</div><div class="stat-value">— / 10</div></div>
+            <div class="stat"><div class="stat-label">Uptime</div><div class="stat-value">99.9%</div></div>
+            <div class="stat"><div class="stat-label">Slots</div><div class="stat-value">Libre</div></div>
+          </div>
+          <div class="alert alert-warning">
+            <div class="alert-icon">⚠</div>
+            <div><div class="alert-title">Maintenance planifiée</div>Redémarrage prévu à 03:00 UTC pour mise à jour du kernel.</div>
+          </div>
+          <div class="cluster gap-2">
+            <button class="btn btn-primary btn-sm">Démarrer</button>
+            <button class="btn btn-ghost btn-sm">Planifier</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANS -->
+    <section class="section" id="plans">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2 class="section-title">Plans &amp; pricing</h2>
+      </div>
+      <p class="section-desc">Pattern pricing : trois tiers, le plan <em>recommandé</em> reçoit un halo peach-50 et un tag ember. Les chiffres utilisent Fraunces pour la personnalité.</p>
+
+      <div class="plan-grid">
+        <div class="plan">
+          <div>
+            <div class="plan-name">Cozy</div>
+            <div class="plan-tagline">Parfait pour jouer entre potes</div>
+          </div>
+          <div class="plan-price">
+            <span class="plan-price-amount">4€</span>
+            <span class="plan-price-unit">/mois</span>
+          </div>
+          <ul class="plan-features">
+            <li>2 GB RAM · 2 vCPU</li>
+            <li>Jusqu'à 10 joueurs</li>
+            <li>Backup quotidien</li>
+            <li>DDoS protection</li>
+            <li>Support Discord</li>
+          </ul>
+          <button class="btn btn-secondary">Commencer</button>
+        </div>
+
+        <div class="plan featured">
+          <div class="plan-tag">★ Populaire</div>
+          <div>
+            <div class="plan-name">Campfire</div>
+            <div class="plan-tagline">Le bon compromis pour la team</div>
+          </div>
+          <div class="plan-price">
+            <span class="plan-price-amount">12€</span>
+            <span class="plan-price-unit">/mois</span>
+          </div>
+          <ul class="plan-features">
+            <li>8 GB RAM · 4 vCPU</li>
+            <li>Jusqu'à 40 joueurs</li>
+            <li>Backup toutes les 6h</li>
+            <li>Mods &amp; plugins illimités</li>
+            <li>Sous-domaine .campfire.gg</li>
+            <li>Support prioritaire</li>
+          </ul>
+          <button class="btn btn-primary">Déployer</button>
+        </div>
+
+        <div class="plan">
+          <div>
+            <div class="plan-name">Bonfire</div>
+            <div class="plan-tagline">Pour les grosses communautés</div>
+          </div>
+          <div class="plan-price">
+            <span class="plan-price-amount">28€</span>
+            <span class="plan-price-unit">/mois</span>
+          </div>
+          <ul class="plan-features">
+            <li>16 GB RAM · 8 vCPU dédiés</li>
+            <li>Jusqu'à 150 joueurs</li>
+            <li>Backup toutes les 3h · 30j</li>
+            <li>Domaine custom</li>
+            <li>Accès SSH root</li>
+            <li>Support 24/7 · SLA 99.95%</li>
+          </ul>
+          <button class="btn btn-secondary">Nous contacter</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALERTS -->
+    <section class="section" id="alerts">
+      <div class="section-header">
+        <span class="section-num">12</span>
+        <h2 class="section-title">Alerts</h2>
+      </div>
+      <div class="stack gap-4">
+        <div class="alert alert-info">
+          <div class="alert-icon">ℹ</div>
+          <div><div class="alert-title">Nouvelle version dispo</div>Paper 1.21.5 est disponible. Mise à jour en un clic.</div>
+        </div>
+        <div class="alert alert-success">
+          <div class="alert-icon">✓</div>
+          <div><div class="alert-title">Serveur créé</div><code>survival-amis</code> est en ligne sur fra-03. Rejoignez-le dès maintenant.</div>
+        </div>
+        <div class="alert alert-warning">
+          <div class="alert-icon">⚠</div>
+          <div><div class="alert-title">Quota RAM à 85%</div>Pensez à passer au plan Bonfire si ça continue.</div>
+        </div>
+        <div class="alert alert-danger">
+          <div class="alert-icon">✕</div>
+          <div><div class="alert-title">Paiement échoué</div>Votre carte a été refusée. Mettez à jour vos infos avant le 2 mai.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS / TABLE -->
+    <section class="section" id="tabs">
+      <div class="section-header">
+        <span class="section-num">13</span>
+        <h2 class="section-title">Tabs &amp; tables</h2>
+      </div>
+
+      <div class="stack gap-4" style="margin-bottom:var(--space-6)">
+        <div class="tabs" id="demo-tabs">
+          <button class="tab active" data-tab="overview">Overview</button>
+          <button class="tab" data-tab="console">Console</button>
+          <button class="tab" data-tab="files">Fichiers</button>
+          <button class="tab" data-tab="plugins">Plugins</button>
+          <button class="tab" data-tab="backups">Backups</button>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Serveur</th>
+              <th>Jeu</th>
+              <th>Status</th>
+              <th>Joueurs</th>
+              <th>Uptime</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>survival-amis</strong><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">fra-03</div></td>
+              <td>Minecraft 1.21.4</td>
+              <td><span class="badge badge-success"><span class="badge-dot" style="background:#6BAE4F"></span> Online</span></td>
+              <td>12 / 20</td>
+              <td>14j 3h</td>
+              <td><button class="btn btn-ghost btn-sm">Gérer →</button></td>
+            </tr>
+            <tr>
+              <td><strong>rust-hardcore</strong><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">fra-01</div></td>
+              <td>Rust</td>
+              <td><span class="badge badge-warn">Laggy</span></td>
+              <td>78 / 100</td>
+              <td>6j 12h</td>
+              <td><button class="btn btn-ghost btn-sm">Gérer →</button></td>
+            </tr>
+            <tr>
+              <td><strong>valheim-vikings</strong><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">fra-02</div></td>
+              <td>Valheim</td>
+              <td><span class="badge badge-danger">Offline</span></td>
+              <td>— / 10</td>
+              <td>—</td>
+              <td><button class="btn btn-ghost btn-sm">Gérer →</button></td>
+            </tr>
+            <tr>
+              <td><strong>palworld-crew</strong><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">fra-03</div></td>
+              <td>Palworld</td>
+              <td><span class="badge badge-success"><span class="badge-dot" style="background:#6BAE4F"></span> Online</span></td>
+              <td>5 / 32</td>
+              <td>2j 1h</td>
+              <td><button class="btn btn-ghost btn-sm">Gérer →</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- NAV -->
+    <section class="section" id="nav">
+      <div class="section-header">
+        <span class="section-num">14</span>
+        <h2 class="section-title">Navigation</h2>
+      </div>
+      <div class="nav-mock">
+        <div class="nav-logo">
+          <div class="nav-logo-icon"></div>
+          Campfire
+        </div>
+        <div class="nav-links">
+          <a href="#">Jeux</a>
+          <a href="#">Pricing</a>
+          <a href="#">Panel</a>
+          <a href="#">Docs</a>
+          <a href="#">Status</a>
+        </div>
+        <div class="cluster gap-2">
+          <button class="btn btn-ghost btn-sm">Se connecter</button>
+          <button class="btn btn-primary btn-sm">Déployer →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANDING MOCK -->
+    <section class="section" id="landing">
+      <div class="section-header">
+        <span class="section-num">15</span>
+        <h2 class="section-title">Landing mock</h2>
+      </div>
+      <p class="section-desc">Mini aperçu d'une home qui applique tout le system en contexte.</p>
+
+      <div style="border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:var(--surface)">
+        <!-- mini nav -->
+        <div style="padding:var(--space-3) var(--space-6);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-6);background:var(--surface)">
+          <div class="nav-logo"><div class="nav-logo-icon"></div>Campfire</div>
+          <div class="nav-links" style="flex-grow:1"><a href="#">Jeux</a><a href="#">Pricing</a><a href="#">Docs</a></div>
+          <button class="btn btn-primary btn-sm">Déployer →</button>
+        </div>
+        <!-- mini hero -->
+        <div style="padding:var(--space-16) var(--space-10);background:radial-gradient(circle at 70% 40%, rgba(255,190,152,0.4), transparent 50%), var(--peach-50);position:relative">
+          <div class="hero-eyebrow" style="margin-bottom:var(--space-3)">Minecraft · Rust · Valheim · Palworld</div>
+          <h1 style="font-family:var(--font-display);font-size:var(--text-6xl);font-weight:400;line-height:0.95;letter-spacing:-0.04em;max-width:18ch;font-variation-settings:'SOFT' 100,'opsz' 144;margin-bottom:var(--space-5);color:var(--cream-900)">Vos serveurs gaming,<br><em style="color:var(--ember-500)">au coin du feu.</em></h1>
+          <p style="font-size:var(--text-lg);color:var(--cream-700);max-width:50ch;margin-bottom:var(--space-6)">Setup en 30 secondes. Panel clair. Support par des gens qui jouent. À partir de 4€/mois.</p>
+          <div class="cluster gap-3">
+            <button class="btn btn-primary btn-lg">Déployer un serveur</button>
+            <button class="btn btn-ghost btn-lg">Voir les plans →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VOICE -->
+    <section class="section" id="voice">
+      <div class="section-header">
+        <span class="section-num">16</span>
+        <h2 class="section-title">Voix &amp; ton</h2>
+      </div>
+      <p class="section-desc">Proche sans être familier. Technique sans être cryptique. Passer le jargon au filtre : si mon cousin de 14 ans ne comprend pas, on reformule.</p>
+
+      <div class="grid-2" style="gap:var(--space-4)">
+        <div class="card" style="border-left:3px solid var(--success)">
+          <div class="badge badge-success" style="margin-bottom:var(--space-3)">✓ On dit</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-3);font-size:var(--text-sm)">
+            <li>« Votre serveur démarre en 30 secondes »</li>
+            <li>« On a un souci avec fra-01. On s'en occupe. »</li>
+            <li>« Backup restauré. Votre monde est revenu. »</li>
+            <li>« TPS bas ? Voilà ce qui se passe. »</li>
+          </ul>
+        </div>
+        <div class="card" style="border-left:3px solid var(--danger)">
+          <div class="badge badge-danger" style="margin-bottom:var(--space-3)">✕ On évite</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-3);font-size:var(--text-sm);color:var(--text-soft)">
+            <li>« Déploiement ultra-performant de votre instance »</li>
+            <li>« Incident critique en cours d'investigation »</li>
+            <li>« Data recovery operation successful »</li>
+            <li>« Performance dégradée détectée »</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      Campfire Design System · v0.1 · {hex: #FFBE98} · Fraunces + Manrope + JetBrains Mono<br>
+      Construit pour Arthur — hébergeur gaming cozy, anti-néon.
+    </footer>
+
+  </main>
+</div>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<script>
+// Theme toggle
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', () => {
+  const current = document.documentElement.dataset.theme;
+  document.documentElement.dataset.theme = current === 'dark' ? 'light' : 'dark';
+});
+
+// Sidebar active link on scroll
+const sections = document.querySelectorAll('.section, .hero');
+const links = document.querySelectorAll('.sidebar-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      links.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Tabs demo
+document.querySelectorAll('#demo-tabs .tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('#demo-tabs .tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
+
+// Swatch click-to-copy
+document.querySelectorAll('.swatch').forEach(s => {
+  s.addEventListener('click', () => {
+    const hex = s.querySelector('.swatch-hex')?.textContent;
+    if (hex) navigator.clipboard?.writeText(hex);
+  });
+});
+</script>
+
+</body>
+</html>
